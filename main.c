@@ -1,33 +1,41 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int GetUserInput();
-void PrintingDatas();
-void WritingDatas(int input, int cap, int *arr, int index);
+int GetUserInput(int* ptr, int cnt);
+void PrintingDatas(int* ptr, int cnt);
 
 int main(void) {
     int capacity = 2;
+    int count = 0;
+    int* input;
     int* datas = calloc(capacity, sizeof(int));
     if (datas == NULL) {
         printf("\nMemory allocation failed!");
-        free(datas);
         return 1;
     }
-    while (GetUserInput() != -1)
+    while (GetUserInput(input, count) != -1)
     {
-        for (int i = 0; i < capacity; i++)
+        if (count >= capacity)
         {
-            WritingDatas(GetUserInput(), capacity, datas, i);
+            capacity *= 2;
+            int* temp = realloc(datas, capacity * sizeof(int));
+            if (temp == NULL) {
+                printf("\nMemory allocation failed!");
+                free(temp);
+                return 1;
+            }
+            datas = temp;
         }
-        capacity++;
-        realloc(datas, capacity * sizeof(int));
+        datas[count] = *input;
+        count++;
     }
     free(datas);
     return 0;
 }
 
-int GetUserInput()
+int GetUserInput(int* ptr, int cnt)
 {
+    printf("Please enter a value for Data[%d]\n", cnt);
     int input;
     while (1)
     {
@@ -36,11 +44,10 @@ int GetUserInput()
             break;
         }
         while (getchar() != '\n');
-        printf("Please enter valid value!");
+        printf("Please enter valid value!\n");
     }
+    *ptr = input;
     return input;
 }
-void WritingDatas(int input, int cap, int* arr, int index)
-{
 
-}
+
