@@ -94,7 +94,3 @@ Through this project I learned:
 * Safe usage of `calloc`, `realloc`, and `free`.
 * How dynamically growing arrays are implemented.
 * Basic memory management practices used in real-world software.
-
-## Author
-
-Furkan Gurbanli
