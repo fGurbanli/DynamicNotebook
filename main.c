@@ -34,7 +34,13 @@ int main(void) {
         datas[count] = input;
         count++;
     }
-    realloc(datas, count*sizeof(int));
+    int* temp = realloc(datas, count*sizeof(int));
+    if (temp == NULL) {
+        printf("\nMemory allocation failed!");
+        free(datas);
+        return 1;
+    }
+    datas = temp;
     PrintDatas(datas, count);
     free(datas);
     return 0;
